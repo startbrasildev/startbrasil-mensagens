@@ -1,0 +1,39 @@
+image: node:18.18.0
+
+stages:
+  - build
+  - deploy
+
+variables:
+  # Definir o caminho para a chave privada SSH
+  SSH_PRIVATE_KEY: $SSH_PRIVATE_KEY
+  # Definir o nome de usuário e host SSH
+  SSH_HOST: "185.173.110.76"
+  SSH_USER: "root"
+
+before_script:
+  - mkdir -p ~/.ssh
+  - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+  - chmod 600 ~/.ssh/id_rsa
+  - ssh-keyscan $SSH_HOST >> ~/.ssh/known_hosts
+  - ls -la ~/.ssh
+  - cat ~/.ssh/id_rsa
+
+build:
+  stage: build
+  script:
+    - echo "Executando etapa de build..."
+    - npm install
+    - npm run build
+
+deploy:
+  stage: deploy
+  script:
+    - scp -v -r ./build/* $SSH_USER@$SSH_HOST:/srv/api-mensagens/build2/
+    - ssh -v $SSH_USER@$SSH_HOST '
+        cd /srv/api-mensagens/build2 &&
+        npm install --production &&
+        pm2 restart "api-mensagens"
+      '
+  only:
+    - dev
