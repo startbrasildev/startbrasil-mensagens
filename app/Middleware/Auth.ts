@@ -20,7 +20,6 @@ export default class AuthMiddleware {
     }
 
     const { name, accessKey: accessToken } = auth
-    console.log(name)
 
     const authorizedKey = await AuthorizedKey.query().where('name', name).first()
 
