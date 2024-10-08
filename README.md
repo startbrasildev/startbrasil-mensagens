@@ -32,7 +32,7 @@ Ter SQL Server instalado (Senha "root") e algum SGBD.
 
 -Criar uma conexão local sem apontar o schema principal
 
--Criar database com nome 'swift'
+-Criar database com nome 'dbstartbrasil'
 
 -Se estiver usando o DBeaver (SGBD) para conexão local ir até opções avançadas da conexão e ativar "Usar SSL" se necessário
 
@@ -40,5 +40,5 @@ Se acontecer algum erro de sql_mode=only_full_group_by rodar o seguinte comando 
 SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
 
 # Dependencies Version
-- Node Version: 18.20.2
-- Adonis Version: 5.9.0
+- Node Version: 18.19.1
+- Adonis Version: 5.9.5
