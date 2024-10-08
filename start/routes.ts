@@ -12,12 +12,7 @@ Route.group(() => {
 }).prefix('auth')
   .middleware('auth')
 
-  //teste
+  //Send Message
 Route.group(() => {
-  Route.post('teste', 'MotoristaController.test')
-}).middleware('auth')
-
-//teste
-Route.group(() => {
-  Route.post('teste', 'TestController.test')
+  Route.post('send/queue', 'SendMsgController.sendQueue')
 }).middleware('auth')
