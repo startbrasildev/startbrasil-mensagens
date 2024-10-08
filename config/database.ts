@@ -5,19 +5,19 @@ const databaseConfig: DatabaseConfig = {
   connection: Env.get('DB_CONNECTION'),
 
   connections: {
-    mysql: {
-      client: 'mysql2',
+    postgres: {
+      client: 'postgres',
       connection: {
-        host: Env.get('MYSQL_HOST'),
-        port: Env.get('MYSQL_PORT'),
-        user: Env.get('MYSQL_USER'),
-        password: Env.get('MYSQL_PASSWORD', ''),
-        database: Env.get('MYSQL_DB_NAME'),
+        host: Env.get('POSTGRES_HOST'),
+        port: Env.get('POSTGRES_PORT'),
+        user: Env.get('POSTGRES_USER'),
+        password: Env.get('POSTGRES_PASSWORD'),
+        database: Env.get('POSTGRES_DB_NAME'),
       },
       migrations: {
         naturalSort: true,
         disableRollbacksInProduction: true,
-        tableName: 'msg_schema', // Nome personalizado da tabela de migrações
+        tableName: 'msg_schema', 
       },
       healthCheck: false,
       debug: false,
