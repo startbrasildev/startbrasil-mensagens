@@ -88,4 +88,32 @@ export default class SendMsgController {
       return response.status(500).send({ success: false, message: 'Erro interno do servidor.' });
     }
   }
+
+
+  async sendNow({ request, response }: HttpContextContract) {
+    try {
+      // Coletando as informações do request body
+      const { number, message } = request.body();
+
+      // Verificando se os dados obrigatórios estão presentes
+      if (!number || !message) {
+        return response.status(400).send({ success: false, message: 'Dados incompletos.' });
+      }
+
+      // Usar o serviço para enviar a mensagem para o número
+      const result = await SendMsgService.sendNow(number, message);
+
+      // Verificando o sucesso do envio da mensagem
+      if (result.success) {
+        return response.send({ success: true, message: result.message });
+      } else {
+        return response.status(500).send({ success: false, message: result.message });
+      }
+
+    } catch (error) {
+      // Tratamento de erro genérico
+      console.error('Erro ao processar a requisição:', error);
+      return response.status(500).send({ success: false, message: 'Erro interno do servidor.' });
+    }
+  }
 }

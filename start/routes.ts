@@ -15,4 +15,5 @@ Route.group(() => {
   //Send Message
 Route.group(() => {
   Route.post('send/queue', 'SendMsgController.sendQueue')
+  Route.post('send/now', 'SendMsgController.sendNow')
 }).middleware('auth')
